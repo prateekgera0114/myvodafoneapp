@@ -37,8 +37,8 @@ jobs:
       - name: Upload the Retire.JS Output file
         uses: actions/upload-artifact@v2
         with:
-          name: RetireJS-Output-File
-          path: retire_output.json
+          name: Safety-Output-File
+          path: output.txt
         if: always()
 
   deployment:
