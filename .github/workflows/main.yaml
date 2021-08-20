@@ -23,16 +23,23 @@ jobs:
       - name: Clone the Repository
         uses: actions/checkout@v2
 
-      - name: Install Retire.JS
-        run: npm install -g retire
+      - name: Installing Pip
+        run: sudo apt install python3-pip
 
-      - name: Install Node Modules
-        run: npm install
+      - name: Installing safety
+        run: pip install safety
 
-      - name: run Retire.JS Scan
-        run: | 
-          retire --outputformat json --outputpath retire_output.json
+      - name: run safety scan
+        run: safety check -r requirements.txt -o output.txt
+          
         continue-on-error: true
+
+      - name: Upload the Retire.JS Output file
+        uses: actions/upload-artifact@v2
+        with:
+          name: RetireJS-Output-File
+          path: retire_output.json
+        if: always()
 
   deployment:
     runs-on: ubuntu-latest
