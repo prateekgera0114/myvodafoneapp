@@ -16,7 +16,7 @@ jobs:
           echo "test Job is going on"
           sleep 20
 
-  oast-retire:
+  oast-safety:
     runs-on: ubuntu-latest
     needs: test
     steps:
@@ -30,11 +30,11 @@ jobs:
         run: pip install safety
 
       - name: run safety scan
-        run: safety check -r requirements.txt -o output.txt
+        run: safety check -r requirements.txt -o output.txt --json
           
         continue-on-error: true
 
-      - name: Upload the Retire.JS Output file
+      - name: Upload the Safety Output file
         uses: actions/upload-artifact@v2
         with:
           name: Safety-Output-File
@@ -43,7 +43,7 @@ jobs:
 
   deployment:
     runs-on: ubuntu-latest
-    needs: oast-retire
+    needs: oast-safety
     steps:
       - run: |
           echo "deployment Job is going on"
