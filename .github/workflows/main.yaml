@@ -30,7 +30,7 @@ jobs:
         run: pip install safety
 
       - name: run safety scan
-        run: safety check -r requirements.txt -o output.txt --json
+        run: safety check -r requirements.txt -o output.json --json
           
         continue-on-error: true
 
